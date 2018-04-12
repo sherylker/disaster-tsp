@@ -1,0 +1,22 @@
+import pandas as pd
+import numpy as np
+import networkx as nx
+import matplotlib.pyplot as plt
+
+pos={}
+nodes = pd.read_csv("DataCollection.csv")
+for i in range(len(nodes)):
+    pos[nodes.iloc[i]['Name']]=[nodes.iloc[i]['Longitude'], nodes.iloc[i]['Latitude']]
+
+G = nx.Graph()
+
+G.add_nodes_from(pos.keys())
+for n, p in pos.items():
+    G.node[n]['pos'] = p
+
+G.add_edge('AngMoKio', 'Bishan')
+G.add_edge('Bishan', 'PasirRis')
+
+
+nx.draw(G, pos=pos, with_labels=True, font_size=10, node_size=20)
+plt.show()
